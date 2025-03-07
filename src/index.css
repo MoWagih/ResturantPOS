@@ -1,0 +1,26 @@
+@font-face {
+  font-family: Glory;
+  src: url(/src/assets/fonts/Glory-Regular.ttf);
+}
+
+/* Main Colors as Variables */
+
+:root {
+  --mainYellow : #FFCA40;
+  --mainRed : #c8161d;
+  --mainGrey : #808080;
+  --mainWhite : #f8f8f7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Glory;
+}
+
+body, .App, #root {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
