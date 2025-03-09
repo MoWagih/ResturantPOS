@@ -1,3 +1,4 @@
+import styles from './Products.module.css'
 import { useEffect, useState } from "react";
 import {
   Navigate,
@@ -20,6 +21,7 @@ export default function Products() {
     let obj = data.find((el) => {
       return el.documentId == active_cat_id;
     });
+    
     if (obj) {
       setCategoryInfo(obj)
       setCheck(true);
@@ -30,12 +32,10 @@ export default function Products() {
     return ()=>{
       resetActiveId();
     }
-
-
   }, []);
 
   return (
-    <div>
+    <div id={styles.Products}>
       <NavHeader tabName={categoryInfo.name} />
       <h1>Products in {categoryInfo.name}</h1>
     </div>
