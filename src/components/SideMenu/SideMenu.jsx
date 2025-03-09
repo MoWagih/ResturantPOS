@@ -19,6 +19,8 @@ export default function SideMenu() {
         navigate("/login");
     }
 
+    const [activeTab, setActiveTab] = useState(0);
+
     const [links,setLinks] = useState([
         {name : "Dashboard" , icon : <RiDashboardHorizontalFill />, path : "/"},
         {name : "Foods & Drinks" , icon : <IoFastFoodSharp />, path : "/order"},
@@ -35,7 +37,7 @@ export default function SideMenu() {
        {
         links.map((el,index) => {
             return (
-                <Link key={index} to={el.path} className={"col-12 ps-3 pe-3 d-flex gap-2 align-items-center nav-link " + styles.link }>
+                <Link onClick={()=>{ setActiveTab(index)}} key={index} to={el.path} className={"col-12 ps-3 pe-3 d-flex gap-2 align-items-center nav-link " + styles.link + "  " + (activeTab === index ? styles.activeLink : null) }>
                     {el.icon}
                     <h6 className="m-0">{el.name}</h6>
                  </Link>

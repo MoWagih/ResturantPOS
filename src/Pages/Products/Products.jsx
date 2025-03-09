@@ -1,31 +1,43 @@
 import { useEffect, useState } from "react";
-import {Navigate,useLocation,useNavigate,useParams,} from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import NavHeader from "../../components/NavHeader/NavHeader";
+import { useData } from "../../Store/index";
 
 export default function Products() {
-  const [categories] = useState([
-    { name: "pasta", path: "pasta", price: 100  },
-    { name: "burgers", path: "burgers", price: 100  },
-    { name: "pizza", path: "pizza", price: 200 },
-]);
-
   const navigate = useNavigate();
   const [check, setCheck] = useState(false);
-  const params = useParams();
+  const { data , resetActiveId , active_cat_id  } = useData();
+  const [categoryInfo , setCategoryInfo] = useState({});
 
-  useEffect(()=>{
-    let acceptedRoutes = ["pasta","burgers","pizza"];
-    // let obj = categories.filter((el)=>{return el.price})
 
-    let obj = categories.find((el)=>{return el.path == params.category})
-    
-    if(obj){
-        setCheck(true);
+  useEffect(() => {
+    let acceptedRoutes = ["pasta", "burgers", "pizza"];
+    let obj = data.find((el) => {
+      return el.documentId == active_cat_id;
+    });
+    if (obj) {
+      setCategoryInfo(obj)
+      setCheck(true);
     } else {
-        navigate("/error");
+      navigate("/error");
     }
 
-},[]);
+    return ()=>{
+      resetActiveId();
+    }
 
 
-  return <div>products in category {params.category}</div>;
+  }, []);
+
+  return (
+    <div>
+      <NavHeader tabName={categoryInfo.name} />
+      <h1>Products in {categoryInfo.name}</h1>
+    </div>
+  );
 }
